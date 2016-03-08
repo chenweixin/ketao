@@ -12,6 +12,7 @@
 	
 	<mvc:resources location="/img/" mapping="/img/**"/>  
 	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/"></property>

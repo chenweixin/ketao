@@ -28,25 +28,25 @@ public class LoginFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-//		HttpServletRequest httpRequest = (HttpServletRequest) request;
-//        HttpServletResponse httpResponse = (HttpServletResponse) response;
-//        String requestUri = httpRequest.getRequestURI();
-// 
-//        for (String url : excludedUrls) {
-//            if (requestUri.contains(url.trim())) {
-//                chain.doFilter(request, response);
-//                return;
-//            }
-//        }
-//        // intercept
-//        // getSession(true) is required, otherwise there will null pointer at next line.
-//        HttpSession session = httpRequest.getSession(true);
-//        if (session.getAttribute(Define.SESSTION_LOGIN_NAME) == null) {
-//            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
-//        } else {
-//            chain.doFilter(request, response);
-//            return;
-//        }
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        String requestUri = httpRequest.getRequestURI();
+ 
+        for (String url : excludedUrls) {
+            if (requestUri.contains(url.trim())) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+        // intercept
+        // getSession(true) is required, otherwise there will null pointer at next line.
+        HttpSession session = httpRequest.getSession(true);
+        if (session.getAttribute(Define.SESSTION_LOGIN_NAME) == null) {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
+        } else {
+            chain.doFilter(request, response);
+            return;
+        }
 	}
 
 	public void destroy() {
