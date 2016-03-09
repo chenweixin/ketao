@@ -19,20 +19,16 @@
     <p class="logo-txt text-center">KeTao</p>
     <p class="loginbar-tip text-center">KeTao后台管理系统</p>
 	<div style="margin-bottom:10px">
-	  <input class="easyui-textbox" style="width:100%;height:40px;padding:12px" data-options="prompt:'Username',iconCls:'icon-man',iconWidth:38">
+	  <input class="easyui-textbox" style="width:100%;height:40px;padding:12px;" data-options="prompt:'用户名',iconCls:'icon-man',iconWidth:38">
 	</div>
 	<div style="margin-bottom:20px">
-	  <input class="easyui-textbox" type="password" style="width:100%;height:40px;padding:12px" data-options="prompt:'Password',iconCls:'icon-lock',iconWidth:38">
+	  <input class="easyui-textbox" type="password" style="width:100%;height:40px;padding:12px" data-options="prompt:'密码',iconCls:'icon-lock',iconWidth:38">
 	</div>
-	<div style="margin-bottom:20px">
+	<div style="margin-bottom:20px;font-size: 14px">
 	  <input type="checkbox" checked="checked">
-	<span>Remember me</span>
+	  <span>记住密码</span>
 	</div>
-	<div>
-	  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="padding:5px 0px;width:100%;">
-	    <span style="font-size:14px;">Login</span>
-	  </a>
-	</div>
+	<button type="submit" class="btn">登录</button>
   </div>
 </body>
 </html>
