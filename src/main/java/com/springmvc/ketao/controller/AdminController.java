@@ -3,6 +3,7 @@ package com.springmvc.ketao.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.Index;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Controller;

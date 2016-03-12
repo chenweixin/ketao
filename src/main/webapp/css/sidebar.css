@@ -5,6 +5,7 @@ body{
     position: fixed;
     width: 200px;
     height: 100%;
+    padding-top: 30px;
     background: #2f4050;
     text-align: center;
 }
@@ -17,6 +18,7 @@ body{
     display: block;
     height: 40px;
     line-height: 40px;
+    padding-top: 2px;
 }
 .sidebar-nav ul li a.active{
     color: #ffffff;

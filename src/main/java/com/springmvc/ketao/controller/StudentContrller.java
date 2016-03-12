@@ -15,6 +15,11 @@ public class StudentContrller {
 	@Resource(name="studentManager")
 	private IStudentManager studentManager;
 	
+	@RequestMapping("")
+	public String index(){
+		return "/view/student";
+	}
+	
 	@RequestMapping("/add")
 	public String addStudent(){
 		Student student = new Student();
