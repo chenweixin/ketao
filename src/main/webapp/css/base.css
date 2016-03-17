@@ -52,12 +52,17 @@ lable{
 	font-size: 14px;
 	color: #ED5565;
 }
+.text-success{
+	font-size: 14px;
+	color: #1ab394;
+}
 .text-btn{
 	color: #3E81B9;
 }
 .text-btn:hover{
 	color: #345F84;
 	cursor: pointer;
+	text-decoration: none;
 }
 .searcharea{
 	display: inline-block;
@@ -70,10 +75,6 @@ lable{
 	border-radius: 3px;
 	cursor: pointer;
 	font-size: 16px;
-}
-.input-normal{
-	width: 350px;
-	margin-left: 
 }
 .base-btn{
 	height: 34px;
@@ -93,6 +94,12 @@ lable{
 .form-group{
 	height: 35px;
 	line-height: 35px;
+}
+.radio-margin{
+	margin-right: 20px;
+}
+.empty-error{
+	margin-left: 10px;
 }
 
 .inline-block{
@@ -138,15 +145,17 @@ lable{
 	cursor: default;
 }
 .base-container .nav .nav-item{
+	float: right;
+	display: inline-block;
 	margin-top: 0;
 	margin-bottom: 0;
 	margin-right: 20px;
-	float: right;
-	display: inline-block;
+	color: #676a6c;
 	cursor: pointer;
 }
 .base-container .nav .nav-item:hover{
 	color: #1ab394;
+	text-decoration: none;
 }
 .base-container .nav .welcome{
 	margin: 0;

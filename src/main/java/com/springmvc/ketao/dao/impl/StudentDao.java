@@ -20,7 +20,7 @@ public class StudentDao implements IStudentDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void addStudent(Student student) {
+	public void addStudent(Student student) throws Exception{
 		sessionFactory.getCurrentSession().save(student);
 	}
 
@@ -28,6 +28,13 @@ public class StudentDao implements IStudentDao {
 		String hql = "delete Student s where s.id=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, id);
+		return (query.executeUpdate() > 0);
+	}
+	
+	public boolean delStudentsByIds(String[] ids) {
+		String hql = "delete Student s where s.id in (:ids)";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameterList("ids", ids);
 		return (query.executeUpdate() > 0);
 	}
 
@@ -56,6 +63,14 @@ public class StudentDao implements IStudentDao {
 	public List<Student> getAllStudents() {
 		String hql = "from Student";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		return query.list();
+	}
+
+	public List<Student> getStudentsBySearch(String search) {
+		String hql = "from Student s where s.id=? or s.name like?";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setString(0, search);
+		query.setString(1, "%"+search+"%");
 		return query.list();
 	}
 

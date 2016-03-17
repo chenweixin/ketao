@@ -18,12 +18,16 @@ public class StudentManager implements IStudentManager {
 		this.studentDao = studentDao;
 	}
 
-	public void addStudent(Student student) {
+	public void addStudent(Student student) throws Exception{
 		studentDao.addStudent(student);
 	}
 
 	public boolean delStudent(String id) {
 		return studentDao.delStudent(id);
+	}
+	
+	public boolean delStudentsByIds(String[] ids) {
+		return studentDao.delStudentsByIds(ids);
 	}
 
 	public boolean updateStudent(Student student) {
@@ -36,6 +40,10 @@ public class StudentManager implements IStudentManager {
 
 	public List<Student> getAllStudents() {
 		return studentDao.getAllStudents();
+	}
+
+	public List<Student> getStudentsBySearch(String search) {
+		return studentDao.getStudentsBySearch(search);
 	}
 
 }

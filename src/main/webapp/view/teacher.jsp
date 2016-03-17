@@ -1,9 +1,14 @@
+<%@page import="com.springmvc.ketao.config.Define"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8" isELIgnored="false"%>
 <%
   String path = request.getContextPath();
   String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+  
+  String username = (String) session.getAttribute(Define.SESSTION_LOGIN_NAME);
+  
   request.setAttribute("basePath", basePath);
+  request.setAttribute("username", username);
 %>
 <html>
 <head>  
@@ -22,50 +27,60 @@
     <div class="item">
       <ul>
         <li><a href="/ketao">首页</a></li>
-        <li><a href="/ketao/admin" class="active">学生信息管理</a></li>
-        <li><a href="#">教师信息管理</a></li>
+        <li><a href="/ketao/student" class="active">学生信息管理</a></li>
+        <li><a href="/ketao/teacher">教师信息管理</a></li>
       </ul>
     </div>
   </div>
   <div class="base-container">
     <div class="nav">
       <p class="nav-title">KeTao后台管理系统</p>
-      <p class="nav-item"><i class="icon icon-signout"></i>退出</p>
-      <p class="nav-item">XXXX</p>
+      <a href="/ketao/login/logout" class="nav-item"><i class="icon icon-signout"></i>退出</a>
+      <a class="nav-item">${username }</a>
       <p class="welcome">Hi，</p>
     </div>
     <div class="content">
       <div class="content-titlebar">
-        <p class="text-title">搜索学生信息</p>
+        <p class="text-title inline-block">搜索教师信息</p>
       </div>
-      <div class="searchbar">
+      <form class="searchbar" action="/ketao/teacher/getteachers" onsubmit="return checkFields()">
         <div class="searcharea">
-          <input type="text" placeholder="输入学号或姓名">
+          <input name="search" type="text" placeholder="输入教师工号或姓名">
         </div>
         
-        <button type="submit" class="base-btn btn-normal">搜索</button>
-        <button type="submit" class="base-btn btn-normal">高级搜索</button>
-        <p class="inline-block text-error">请输入搜索内容</p>
-      </div>
+        <button type="submit" class="base-btn">搜索</button>
+        <!-- <button class="base-btn">高级搜索</button> -->
+        <p class="inline-block text-error" style="display: none">请输入搜索内容</p>
+      </form>
     </div>
       
     <div class="content">
       <div class="content-titlebar">
-        <p class="text-title">添加学生信息</p>
+        <p class="text-title inline-block">添加教师信息</p>
       </div>
-      <p class="inline-block">往数据库添加学生请点击</p>
-      <p class="inline-block text-btn">添加</p>
+      <p class="inline-block">往数据库添加教师请点击</p>
+      <a href="/ketao/view/addteacher.jsp" class="inline-block text-btn">添加</a>
       
     </div>
     
     <div class="content">
       <div class="content-titlebar">
-        <p class="text-title">查看全部学生</p>
+        <p class="text-title inline-block">查看全部教师</p>
       </div>
-      <p class="inline-block">查看数据库中所有的学生列表</p>
-      <p class="inline-block text-btn">查看</p>
+      <p class="inline-block">查看数据库中所有的教师列表</p>
+      <a href="/ketao/teacher/getall" class="inline-block text-btn">查看</a>
       
     </div>
   </div>
+  <script type="text/javascript">
+    function checkFields(){
+    	var value = $("input[name='search']").val();
+    	if(value == ""){
+    		$(".text-error").show().css("display", "inline-block");
+    		return false;
+    	}
+    	return true;
+    }
+  </script>
 </body>
 </html>

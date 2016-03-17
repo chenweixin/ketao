@@ -20,21 +20,12 @@ public class Student {
 	@Column(length=32)
 	private boolean sex;
 	
-	/**
-	 * 学院
-	 */
 	@Column(length=32)
 	private String college;
 	
-	/**
-	 * 专业
-	 */
 	@Column(length=32)
 	private String major;
 	
-	/**
-	 * 入学年份
-	 */
 	@Column(length=32)
 	private String period;
 

@@ -20,9 +20,6 @@ public class Teacher {
 	@Column(length=32)
 	private boolean sex;
 	
-	/**
-	 * ѧԺ
-	 */
 	@Column(length=32)
 	private String college;
 

@@ -30,4 +30,43 @@
 		<property name="target" ref="studentManagerBase"></property>
 	</bean>
 	<!-- student end -->
+	<!-- teacher begin -->
+	<bean id="teacherDao" class="com.springmvc.ketao.dao.impl.TeacherDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="teacherManagerBase" class="com.springmvc.ketao.service.impl.TeacherManager">
+		<property name="teacherDao" ref="teacherDao"></property>
+	</bean>
+	
+	<bean id="teacherManager" parent="transactionBese">
+		<property name="target" ref="teacherManagerBase"></property>
+	</bean>
+	<!-- teacher end -->
+	<!-- inform begin -->
+	<bean id="informDao" class="com.springmvc.ketao.dao.impl.InformDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="informManagerBase" class="com.springmvc.ketao.service.impl.InformManager">
+		<property name="informDao" ref="informDao"></property>
+	</bean>
+	
+	<bean id="informManager" parent="transactionBese">
+		<property name="target" ref="informManagerBase"></property>
+	</bean>
+	<!-- inform end -->
+	<!-- course begin -->
+	<bean id="courseDao" class="com.springmvc.ketao.dao.impl.CourseDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="courseManagerBase" class="com.springmvc.ketao.service.impl.CourseManager">
+		<property name="courseDao" ref="courseDao"></property>
+	</bean>
+	
+	<bean id="courseManager" parent="transactionBese">
+		<property name="target" ref="courseManagerBase"></property>
+	</bean>
+	<!-- course end -->
 </beans>

@@ -33,7 +33,8 @@ public class LoginFilter implements Filter {
         String requestUri = httpRequest.getRequestURI();
  
         for (String url : excludedUrls) {
-            if (requestUri.contains(url.trim())) {
+            if (requestUri.contains(url.trim()) || requestUri.contains("/ketao/css") ||
+            		requestUri.contains("/ketao/js") || requestUri.contains("/ketao/img")) {
                 chain.doFilter(request, response);
                 return;
             }
@@ -42,7 +43,7 @@ public class LoginFilter implements Filter {
         // getSession(true) is required, otherwise there will null pointer at next line.
         HttpSession session = httpRequest.getSession(true);
         if (session.getAttribute(Define.SESSTION_LOGIN_NAME) == null) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
         } else {
             chain.doFilter(request, response);
             return;
