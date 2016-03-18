@@ -50,13 +50,27 @@ $(document).ready(function() {
   	return str_data;
   }
   function getCourseData(){
-  	var id = $("input[name='addcourse-name']").data("id");
+  	var id = $("input[name='addcourse-id']").val();
+  	if(id == ""){
+  		$(".empty-error").show().css("display", "inline-block");
+  		return;
+  	}
   	var name = $("input[name='addcourse-name']").val();
   	var location = $("input[name='addcourse-location']").val();
   	var credit = $("input[name='addcourse-credit']").val();
   	var type = $(".addcourse-type").val();
+  	var teacher_id = $("input[name='addcourse-teacher_id']").val();
   	var create_time = getNowFormatDate();
-  	var str_data = {id: id, name: name, location: location, credit: credit, type: type, create_time: create_time};
+  	var str_data = {id: id, name: name, teacher_id: teacher_id, location: location, credit: credit, type: type, create_time: create_time};
+  	return str_data;
+  }
+  function getNoticeData(){
+  	var id = $("input[name='addnotice-title']").data("id");
+  	var title = $("input[name='addnotice-title']").val();
+  	var content = $("input[name='addnotice-content']").val();
+  	var course_id = $("input[name='addnotice-course_id']").val();
+  	var create_time = getNowFormatDate();
+  	var str_data = {id: id, title: title, content: content, create_time: create_time};
   	return str_data;
   }
 function getNowFormatDate() {

@@ -50,11 +50,28 @@
       </div>
       <div class="infrom-add-form">
         <div class="form-group">
+          <lable class="col-sm-2 text-right">课程id</lable>
+          <div class="col-sm-4 inline-block">
+            <p class="info-state">${course.id }</p>
+            <input class="edit-state" name="addcourse-id" type="text" placeholder="请输入课程id" value="${course.id }" style="display: none;" disabled="">
+          </div>
+          <label class="edit-state important-sign" style="display: none;">*</label>
+          <lable class="empty-error text-error" style="display: none;">课程id或教师工号不能为空</lable>
+        </div>
+        <div class="form-group">
           <lable class="col-sm-2 text-right">课程名称</lable>
           <div class="col-sm-4 inline-block">
             <p class="info-state">${course.name }</p>
             <input data-id="${course.id }" class="edit-state" name="addcourse-name" type="text" placeholder="请输入课程名称" value="${course.name }" style="display: none;">
           </div>
+        </div>
+        <div class="form-group">
+          <lable class="col-sm-2 text-right">任课教师工号</lable>
+          <div class="col-sm-4 inline-block">
+            <p class="info-state">${course.teacher_id }</p>
+            <input class="edit-state" name="addcourse-teacher_id" type="text" placeholder="请输入教师工号" value="${course.teacher_id }" style="display: none;">
+          </div>
+          <label class="important-sign">*</label>
         </div>
         <div class="form-group">
           <lable class="col-sm-2 text-right">上课地点</lable>
@@ -129,20 +146,37 @@
    * 编辑学生信息
    */
   function savecourse(){
-  	var str_data = getCourseData();
-  	$.ajax({
-  	   type: "POST",
-  	   url: "/ketao/course/update",
-  	   data: str_data,
-  	   success: function(data){
-  	   	if(data.success == "true"){
-  	   		window.location.href=window.location.href;
-  	   	}
-  	   	else{
-  	   		$("#addcourse-fail").show().css("display", "inline-block");
-  	   	}
-  	   }
-  	});
+	  var teacher_id = $("input[name='addcourse-teacher_id']").val();
+	  if(teacher_id == ""){
+		  $(".empty-error").show().css("display", "inline-block");
+		  return;
+	  }
+	  $.ajax({
+	  	   type: "POST",
+	  	   url: "/ketao/teacher/checkid",
+	  	   data: {teacher_id: teacher_id},
+	  	   success: function(data){
+	  	   	if(data.success == "true"){
+	  	   	var str_data = getCourseData();
+	  	  	$.ajax({
+	  	  	   type: "POST",
+	  	  	   url: "/ketao/course/update",
+	  	  	   data: str_data,
+	  	  	   success: function(data){
+	  	  		if(data.success == "true"){
+	  	  	   		window.location.href=window.location.href;
+	  	  	   	}
+	  	  	   	else{
+	  	  	   		$("#addcourse-fail").show().css("display", "inline-block");
+	  	  	   	}
+	  	  	   }
+	  	  	});
+	  	   	}
+	  	   	else{
+	  	   		$(".id-error").show().css("display", "inline-block");
+	  	   	}
+	  	   }
+	  	});
   }
   </script>
 </body>

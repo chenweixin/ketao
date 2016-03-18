@@ -11,14 +11,18 @@ import org.hibernate.annotations.GenericGenerator;
 public class Course {
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")  
-    @GenericGenerator(name = "system-uuid", strategy = "uuid") 
 	@Column(length=32)
 	private String id;
 	
 	@Column(length=32)
 	private String name;
 	
+	@Column(length=32)
+	private String teacher_id;
+	
+	@Column(length=32)
+	private String teacher_name;
+
 	@Column(length=32)
 	private String location;
 	
@@ -119,6 +123,22 @@ public class Course {
 
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+	
+	public String getTeacher_id() {
+		return teacher_id;
+	}
+
+	public void setTeacher_id(String teacher_id) {
+		this.teacher_id = teacher_id;
+	}
+
+	public String getTeacher_name() {
+		return teacher_name;
+	}
+
+	public void setTeacher_name(String teacher_name) {
+		this.teacher_name = teacher_name;
 	}
 	
 }

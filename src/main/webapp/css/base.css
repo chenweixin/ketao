@@ -101,6 +101,9 @@ lable{
 .empty-error{
 	margin-left: 10px;
 }
+.id-error{
+	margin-left: 10px;
+}
 
 .inline-block{
 	display: inline-block;

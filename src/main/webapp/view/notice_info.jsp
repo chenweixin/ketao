@@ -1,6 +1,7 @@
 <%@page import="com.springmvc.ketao.config.Define"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8" isELIgnored="false"%>
+    pageEncoding="utf-8" isELIgnored="false"%>    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
   String path = request.getContextPath();
   String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,8 +20,7 @@
   <link rel="stylesheet" type="text/css" href="${basePath }css/sidebar.css"/>  
   <script type="text/javascript" src="${basePath }js/jquery.min.js"></script>    
   <script type="text/javascript" src="${basePath }js/bootstrap.min.js"></script>    
-  <script type="text/javascript" src="${basePath }js/bootstrap-suggest.min.js"></script>  
-  <script type="text/javascript" src="${basePath }js/base.js"></script>       
+  <script type="text/javascript" src="${basePath }js/base.js"></script>   
 </head>
 <body>
   <div class="sidebar-nav">
@@ -42,92 +42,80 @@
     </div>
     <div class="content">
       <div class="content-titlebar">
-        <p class="text-title inline-block">添加课程</p>
+        <p class="text-title inline-block">查看课程</p>
+        <div class="inline-block float-right">
+          <button class="info-state btn-edit-info base-btn" onclick="edit()">编辑</button>
+          <button class="edit-state btn-edit-info btn-white" onclick="cancleEdit()" style="display: none">取消</button>
+        </div>
       </div>
-      <div class="course-add-form">
+      <div class="infrom-add-form">
+        <div class="form-group">
+          <lable class="col-sm-2 text-right">课程通知标题</lable>
+          <div class="col-sm-4 inline-block">
+            <p class="info-state">${notice.title }</p>
+            <input data-id="${notice.id }" class="edit-state" name="addnotice-name" type="text" placeholder="请输入课程通知标题" value="${notice.title }" style="display: none;">
+          </div>
+        </div>
+        <div class="form-group">
+          <lable class="col-sm-2 text-right">课程通知</lable>
+          <div class="col-sm-4 inline-block">
+            <p class="info-state">${notice.content }</p>
+            <input data-id="${notice.id }" class="edit-state" name="addnotice-name" type="text" placeholder="请输入课程通知" value="${notice.content }" style="display: none;">
+          </div>
+        </div>
         <div class="form-group">
           <lable class="col-sm-2 text-right">课程id</lable>
           <div class="col-sm-4 inline-block">
-            <input name="addcourse-id" type="text" placeholder="请输入课程id">
+            <p class="info-state">${notice.course_id }</p>
+            <input class="edit-state" name="addnotice-id" type="text" placeholder="请输入课程id" value="${notice.course_id }" style="display: none;" disabled="">
           </div>
-          <label class="important-sign">*</label>
-          <lable class="empty-error text-error" style="display: none;">课程id或教师工号不能为空</lable>
+          <label class="edit-state important-sign" style="display: none;">*</label>
+          <lable class="empty-error text-error" style="display: none;">课程id不能为空</lable>
         </div>
         <div class="form-group">
-          <lable class="col-sm-2 text-right">课程名称</lable>
+          <lable class="col-sm-2 text-right">更新时间</lable>
           <div class="col-sm-4 inline-block">
-            <input name="addcourse-name" type="text" placeholder="请输入课程名称">
+            <p class="info-state">${notice.create_time }</p>
+            <input class="edit-state" type="text" value="${notice.create_time }" style="display: none;" disabled="">
           </div>
         </div>
-        <div class="form-group">
-          <lable class="col-sm-2 text-right">任课教师工号</lable>
-          <div class="col-sm-4 inline-block">
-            <input name="addcourse-teacher_id" type="text" placeholder="请输入教师工号">
-          </div>
-          <label class="important-sign">*</label>
-        </div>
-        <div class="form-group">
-          <lable class="col-sm-2 text-right">上课地点</lable>
-          <div class="col-sm-4 inline-block">
-            <input name="addcourse-location" type="text" placeholder="请输入上课地点">
-          </div>
-        </div>
-        <div class="form-group">
-          <lable class="col-sm-2 text-right">学分</lable>
-          <div class="col-sm-4 inline-block">
-            <input name="addcourse-credit" type="text" placeholder="请输入学分">
-          </div>
-        </div>
-        <div class="form-group">
-          <lable class="col-sm-2 text-right">课程类型</lable>
-          <div class="col-sm-4 inline-block">
-            <select class="addcourse-type">
-              <option value="0">
-              <option value="1">
-              <option value="2">
-              <option value="3">
-              <option value="4">
-              <option value="5">
-              <option value="6">
-            </select>
-          </div>
-        </div>
-        <div>
+        <div class="edit-btn" style="display: none;">
           <div class="col-sm-3">
-            <lable id="addcourse-success" class="text-success" style="display: none;">添加成功</lable>
+            <lable class="text-error" style="display: none;">修改失败</lable>
           </div>
-          <button id="addcourse-btn" class="base-btn" onclick="addcourse()">确认添加</button>
+          <button type="submit" class="base-btn" onclick="savenotice()">保存</button>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
-  function addcourse(){
-	  var teacher_id = $("input[name='addcourse-teacher_id']").val();
-	  if(teacher_id == ""){
+  
+  /**
+   * 编辑学生信息
+   */
+  function savenotice(){
+	  var course_id = $("input[name='addnotice-course_id']").val();
+	  if(course_id == ""){
 		  $(".empty-error").show().css("display", "inline-block");
 		  return;
 	  }
 	  $.ajax({
 	  	   type: "POST",
-	  	   url: "/ketao/teacher/checkid",
-	  	   data: {teacher_id: teacher_id},
+	  	   url: "/ketao/course/checkid",
+	  	   data: {course_id: course_id},
 	  	   success: function(data){
 	  	   	if(data.success == "true"){
-	  	   	var str_data = getCourseData();
+	  	   	var str_data = getNoticeData();
 	  	  	$.ajax({
 	  	  	   type: "POST",
-	  	  	   url: "/ketao/course/add",
+	  	  	   url: "/ketao/notice/add",
 	  	  	   data: str_data,
 	  	  	   success: function(data){
-	  	  	   	if(data.success == "true"){
-	  	  	   		$("#addcourse-fail").hide();
-	  	  	   		$("#addcourse-success").show().css("display", "inline-block");
-	  	  	   		$("input[type='text']").val("");
+	  	  		if(data.success == "true"){
+	  	  	   		window.location.href=window.location.href;
 	  	  	   	}
 	  	  	   	else{
-	  	  	   		$("#addcourse-fail").show().css("display", "inline-block");
-	  	  	   		$("#addcourse-success").hide();
+	  	  	   		$("#addnotice-fail").show().css("display", "inline-block");
 	  	  	   	}
 	  	  	   }
 	  	  	});

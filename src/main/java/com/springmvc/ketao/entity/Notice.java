@@ -6,13 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
+
 /**
- * 通告（如系统维护、学校停课）
+ * 课程通知  关联实体Course
  * @author wilson
  *
  */
 @Entity
-public class Inform {
+public class Notice {
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")  
@@ -27,7 +28,18 @@ public class Inform {
 	private String content;
 	
 	@Column(length=32)
+	private String course_id;
+
+	@Column(length=32)
 	private String create_time;
+
+	public String getCreate_time() {
+		return create_time;
+	}
+
+	public void setCreate_time(String create_time) {
+		this.create_time = create_time;
+	}
 
 	public String getId() {
 		return id;
@@ -53,11 +65,11 @@ public class Inform {
 		this.content = content;
 	}
 
-	public String getCreate_time() {
-		return create_time;
+	public String getCourse_id() {
+		return course_id;
 	}
 
-	public void setCreate_time(String create_time) {
-		this.create_time = create_time;
+	public void setCourse_id(String course_id) {
+		this.course_id = course_id;
 	}
 }

@@ -69,4 +69,17 @@
 		<property name="target" ref="courseManagerBase"></property>
 	</bean>
 	<!-- course end -->
+	<!-- notice begin -->
+	<bean id="noticeDao" class="com.springmvc.ketao.dao.impl.NoticeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="noticeManagerBase" class="com.springmvc.ketao.service.impl.NoticeManager">
+		<property name="noticeDao" ref="noticeDao"></property>
+	</bean>
+	
+	<bean id="noticeManager" parent="transactionBese">
+		<property name="target" ref="noticeManagerBase"></property>
+	</bean>
+	<!-- notice end -->
 </beans>

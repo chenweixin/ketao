@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.Index;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,31 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSONObject;
-import com.springmvc.ketao.entity.Course;
-import com.springmvc.ketao.entity.Teacher;
-import com.springmvc.ketao.service.ICourseManager;
-import com.springmvc.ketao.service.ITeacherManager;
+import com.springmvc.ketao.entity.Notice;
+import com.springmvc.ketao.service.INoticeManager;
 
 @Controller
-@RequestMapping("/course")
-public class CourseController {
+@RequestMapping("/notice")
+public class NoticeController {
 
-	@Resource(name="courseManager")
-	private ICourseManager courseManager;
-	
-	@Resource(name="teacherManager")
-	private ITeacherManager teacherManager;
+	@Resource(name="noticeManager")
+	private INoticeManager noticeManager;
 	
 	@RequestMapping("")
-	public String Index(){
-		return "/view/course";
+	public String index(){
+		return "/view/notice";
 	}
 	
 	@RequestMapping("/add")
-	public void add(Course course, HttpServletResponse response){
+	public void add(Notice notice, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
 		try {
-			courseManager.add(course);
+			noticeManager.add(notice);
 			jsonObject.put("success", "true");
 		} catch (Exception e1) {
 			jsonObject.put("success", "false");
@@ -57,7 +51,7 @@ public class CourseController {
 	@RequestMapping("/delbyids")
 	public void delByIds(@RequestParam(value="ids[]") String []ids, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
-		if(courseManager.delByIds(ids)){
+		if(noticeManager.delByIds(ids)){
 			jsonObject.put("success", "true");
 		}
 		else{
@@ -74,9 +68,9 @@ public class CourseController {
 	}
 	
 	@RequestMapping("/update")
-	public void update(Course course, HttpServletResponse response){
+	public void update(Notice notice, HttpServletResponse response){
 		JSONObject jsonObject = new JSONObject();
-		if(courseManager.update(course)){
+		if(noticeManager.update(notice)){
 			jsonObject.put("success", "true");
 		}
 		else{
@@ -94,34 +88,26 @@ public class CourseController {
 	
 	@RequestMapping("/get")
 	public String get(HttpServletRequest request){
-		String id = request.getParameter("courseid");
-		Course course = courseManager.get(id);
-		request.setAttribute("course", course);
-		return "/view/course_info";
+		String notice_id = request.getParameter("noticeid");
+		Notice notice = noticeManager.get(notice_id);
+		request.setAttribute("notice", notice);
+		return "notice_info";
 	}
 	
-	@RequestMapping("/getcourses")
+	@RequestMapping("/getnotices")
 	public String getBySearch(HttpServletRequest request){
 		String search = request.getParameter("search");
-		List<Course> courses = courseManager.getBySearch(search);
-		for(int i = 0; i < courses.size(); i++){
-			Course course = courses.get(i);
-			course.setTeacher_name(teacherManager.getTeacher(course.getTeacher_id()).getName());
-		}
-		request.setAttribute("courses", courses);
+		List<Notice> notices = noticeManager.getBySearch(search);
+		request.setAttribute("notices", notices);
 		request.setAttribute("search", search);
-		return "/view/course_result";
+		return "notice_result";
 	}
 	
 	@RequestMapping("/getall")
 	public String getAll(HttpServletRequest request){
-		List<Course> courses = courseManager.getAll();
-		for(int i = 0; i < courses.size(); i++){
-			Course course = courses.get(i);
-			course.setTeacher_name(teacherManager.getTeacher(course.getTeacher_id()).getName());
-		}
-		request.setAttribute("courses", courses);
-		request.setAttribute("search", "全部课程");
-		return "/view/course_result";
+		List<Notice> notices = noticeManager.getAll();
+		request.setAttribute("notices", notices);
+		request.setAttribute("search", "全部课程通知");
+		return "notice_result";
 	}
 }

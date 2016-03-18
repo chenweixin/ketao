@@ -44,90 +44,62 @@
       <div class="content-titlebar">
         <p class="text-title inline-block">添加课程</p>
       </div>
-      <div class="course-add-form">
+      <div class="notice-add-form">
         <div class="form-group">
-          <lable class="col-sm-2 text-right">课程id</lable>
+          <lable class="col-sm-2 text-right">课程通知标题</lable>
           <div class="col-sm-4 inline-block">
-            <input name="addcourse-id" type="text" placeholder="请输入课程id">
-          </div>
-          <label class="important-sign">*</label>
-          <lable class="empty-error text-error" style="display: none;">课程id或教师工号不能为空</lable>
-        </div>
-        <div class="form-group">
-          <lable class="col-sm-2 text-right">课程名称</lable>
-          <div class="col-sm-4 inline-block">
-            <input name="addcourse-name" type="text" placeholder="请输入课程名称">
+            <input name="addnotice-title" type="text" placeholder="请输入课程通知标题">
           </div>
         </div>
         <div class="form-group">
-          <lable class="col-sm-2 text-right">任课教师工号</lable>
+          <lable class="col-sm-2 text-right">课程通知</lable>
           <div class="col-sm-4 inline-block">
-            <input name="addcourse-teacher_id" type="text" placeholder="请输入教师工号">
-          </div>
-          <label class="important-sign">*</label>
-        </div>
-        <div class="form-group">
-          <lable class="col-sm-2 text-right">上课地点</lable>
-          <div class="col-sm-4 inline-block">
-            <input name="addcourse-location" type="text" placeholder="请输入上课地点">
+            <input name="addnotice-content" type="text" placeholder="请输入课程通知">
           </div>
         </div>
         <div class="form-group">
-          <lable class="col-sm-2 text-right">学分</lable>
+          <lable class="col-sm-2 text-right">关联课程id</lable>
           <div class="col-sm-4 inline-block">
-            <input name="addcourse-credit" type="text" placeholder="请输入学分">
+            <input name="addnotice-course_id" type="text" placeholder="请输入关联课程id">
           </div>
-        </div>
-        <div class="form-group">
-          <lable class="col-sm-2 text-right">课程类型</lable>
-          <div class="col-sm-4 inline-block">
-            <select class="addcourse-type">
-              <option value="0">
-              <option value="1">
-              <option value="2">
-              <option value="3">
-              <option value="4">
-              <option value="5">
-              <option value="6">
-            </select>
-          </div>
+          <lable class="id-error text-error" style="display: none;">请输入正确的课程id</lable>
         </div>
         <div>
           <div class="col-sm-3">
-            <lable id="addcourse-success" class="text-success" style="display: none;">添加成功</lable>
+            <lable id="addnotice-success" class="text-success" style="display: none;">添加成功</lable>
           </div>
-          <button id="addcourse-btn" class="base-btn" onclick="addcourse()">确认添加</button>
+          <button id="addnotice-btn" class="base-btn" onclick="addnotice()">确认添加</button>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
-  function addcourse(){
-	  var teacher_id = $("input[name='addcourse-teacher_id']").val();
-	  if(teacher_id == ""){
+  function addnotice(){
+	  var course_id = $("input[name='addnotice-course_id']").val();
+	  if(course_id == ""){
 		  $(".empty-error").show().css("display", "inline-block");
 		  return;
 	  }
 	  $.ajax({
 	  	   type: "POST",
-	  	   url: "/ketao/teacher/checkid",
-	  	   data: {teacher_id: teacher_id},
+	  	   url: "/ketao/course/checkid",
+	  	   data: {course_id: course_id},
 	  	   success: function(data){
 	  	   	if(data.success == "true"){
-	  	   	var str_data = getCourseData();
+	  	   	var str_data = getNoticeData();
 	  	  	$.ajax({
 	  	  	   type: "POST",
-	  	  	   url: "/ketao/course/add",
+	  	  	   url: "/ketao/notice/add",
 	  	  	   data: str_data,
 	  	  	   success: function(data){
 	  	  	   	if(data.success == "true"){
-	  	  	   		$("#addcourse-fail").hide();
-	  	  	   		$("#addcourse-success").show().css("display", "inline-block");
+	  	  	   		$("#addnotice-fail").hide();
+	  	  	   		$("#addnotice-success").show().css("display", "inline-block");
 	  	  	   		$("input[type='text']").val("");
 	  	  	   	}
 	  	  	   	else{
-	  	  	   		$("#addcourse-fail").show().css("display", "inline-block");
-	  	  	   		$("#addcourse-success").hide();
+	  	  	   		$("#addnotice-fail").show().css("display", "inline-block");
+	  	  	   		$("#addnotice-success").hide();
 	  	  	   	}
 	  	  	   }
 	  	  	});

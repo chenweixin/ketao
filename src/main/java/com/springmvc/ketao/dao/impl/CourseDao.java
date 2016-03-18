@@ -32,15 +32,16 @@ public class CourseDao implements ICourseDao {
 	}
 
 	public boolean update(Course course) {
-		String hql = "update Course s set s.name=?,s.location=?,s.credit=?,s.type=?,"
+		String hql = "update Course s set s.name=?,s.location=?,s.credit=?,s.type=?,s.teacher_id=?"
 				+ "s.create_time=? where s.id=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, course.getName());
 		query.setString(1, course.getLocation());
 		query.setInteger(2, course.getCredit());
 		query.setInteger(3, course.getType());
-		query.setString(4, course.getCreate_time());
-		query.setString(5, course.getId());
+		query.setString(4, course.getTeacher_id());
+		query.setString(5, course.getCreate_time());
+		query.setString(6, course.getId());
 		
 		return (query.executeUpdate() > 0);
 	}

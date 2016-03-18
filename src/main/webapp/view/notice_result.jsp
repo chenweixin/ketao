@@ -46,7 +46,7 @@
       </div>
       <div>
         <button class="base-btn btn-normal" onclick="turnToAdd()">添加</button>
-        <button class="base-btn btn-normal" onclick="deletecourses()">删除</button>
+        <button class="base-btn btn-normal" onclick="deletenotices()">删除</button>
         <p class="empty-error inline-block text-error" style="display: none;">请勾选要删除的项</p>
         <p class="del-error inline-block text-error" style="display: none;">删除失败</p>
       </div>
@@ -55,40 +55,20 @@
 	      <th>
 	        <input name="checkbox-selectAll" type="checkbox" onclick="isSelectAll(this)">
 	      </th>
+	      <th>课程通知标题</th>
+	      <th>课程通知</th>
 	      <th>课程id</th>
-	      <th>课程名称</th>
-	      <th>任课教师</th>
-	      <th>上课地点</th>
-	      <th>学分</th>
-	      <th>课程类型</th>
-	      <th>课程收藏数</th>
-	      <th>总评价数</th>
-	      <th>课程总评分</th>
 	      <th>更新时间</th>
 	    </tr>
-	    <c:if test="${!empty courses }">
-		<c:forEach items="${courses }" var="item">
+	    <c:if test="${!empty notices }">
+		<c:forEach items="${notices }" var="item">
 	    <tr>
 	      <td>
 	        <input class="item-ids" data-id="${item.id }" type="checkbox">
 	      </td>
-	      <td><a class="text-btn" href="/ketao/course/get?courseid=${item.id }">${item.id }</a></td>
-	      <td>${item.name}</td>
-	      <td><a class="text-btn" href="/ketao/teacher/get?teacherid=${item.teacher_id }">${item.teacher_name}</a></td>
-	      <td>${item.location}</td>
-	      <td>${item.credit}</td>
-	      <td>
-	        <c:if test='${item.type == 0}'>专业选修</c:if>
-	        <c:if test='${item.type == 1}'>人文科学</c:if>
-	        <c:if test='${item.type == 2}'>人文科学核心</c:if>
-	        <c:if test='${item.type == 3}'>社会科学</c:if>
-	        <c:if test='${item.type == 4}'>社会科学核心</c:if>
-	        <c:if test='${item.type == 5}'>科学技术</c:if>
-	        <c:if test='${item.type == 6}'>科学技术核心</c:if>
-	      </td>
-	      <td>${item.num_collect}</td>
-	      <td>${item.num_evaluate}</td>
-	      <td>${item.score}</td>
+	      <td><a class="text-btn" href="/ketao/notice/get?noticeid=${item.id }">${item.title }</a></td>
+	      <td>${item.content}</td>
+	      <td><a class="text-btn" href="/ketao/course/get?courseid=${item.course_id }">${item.course_id}</a></td>
 	      <td>${item.create_time}</td>
 	    </tr>
 	    </c:forEach>
@@ -97,7 +77,7 @@
     </div>
   </div>
   <script type="text/javascript">
-    function deletecourses(){
+    function deletenotices(){
   	  var items = $(".item-ids");
   	  var ids = [];
   	  for(var i = 0; i < items.length; i++){
@@ -112,7 +92,7 @@
   	  var str_data = {ids: ids};
   	  $.ajax({
    	    type: "POST",
-   	    url: "/ketao/course/delbyids",
+   	    url: "/ketao/notice/delbyids",
    	    data: str_data,
    	    success: function(data){
    	   	  if(data.success == "true"){
@@ -128,7 +108,7 @@
      * 跳转
      */
     function turnToAdd(){
-    	window.location.href = "/ketao/view/addcourse.jsp"
+    	window.location.href = "/ketao/view/addnotice.jsp"
     }
   </script>
 </body>

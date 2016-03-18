@@ -113,4 +113,26 @@ public class TeacherController {
 		request.setAttribute("search", "全部教师");
 		return "/view/teacher_result";
 	}
+	
+	@RequestMapping("/checkid")
+	public void checkId(HttpServletRequest request, HttpServletResponse response){
+		String teacher_id = request.getParameter("teacher_id");
+		Teacher teacher = teacherManager.getTeacher(teacher_id);
+		JSONObject jsonObject = new JSONObject();
+		if(teacher != null){
+			jsonObject.put("success", "true");
+		}
+		else{
+
+			jsonObject.put("success", "false");
+		}
+		response.setContentType("application/json");
+		try {
+			PrintWriter writer = response.getWriter();
+			writer.write(jsonObject.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

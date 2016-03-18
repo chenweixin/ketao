@@ -43,7 +43,7 @@ public class LoginFilter implements Filter {
         // getSession(true) is required, otherwise there will null pointer at next line.
         HttpSession session = httpRequest.getSession(true);
         if (session.getAttribute(Define.SESSTION_LOGIN_NAME) == null) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
         } else {
             chain.doFilter(request, response);
             return;
