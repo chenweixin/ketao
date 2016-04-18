@@ -1,11 +1,10 @@
 $(document).ready(function() { 
-	$(".addcourse-type").find("option").eq(0).text("专业选修");
-	$(".addcourse-type").find("option").eq(1).text("人文科学");
-	$(".addcourse-type").find("option").eq(2).text("人文科学核心");
-	$(".addcourse-type").find("option").eq(3).text("社会科学");
-	$(".addcourse-type").find("option").eq(4).text("社会科学核心");
-	$(".addcourse-type").find("option").eq(5).text("科学技术");
-	$(".addcourse-type").find("option").eq(6).text("科学技术核心");
+	$(".addcourse-type").find("option").eq(0).text("人文科学");
+	$(".addcourse-type").find("option").eq(1).text("人文科学核心");
+	$(".addcourse-type").find("option").eq(2).text("社会科学");
+	$(".addcourse-type").find("option").eq(3).text("社会科学核心");
+	$(".addcourse-type").find("option").eq(4).text("科学技术");
+	$(".addcourse-type").find("option").eq(5).text("科学技术核心");
 });
 
 /**
@@ -24,7 +23,8 @@ $(document).ready(function() {
   	var college = $("input[name='addstudent-college']").val();
   	var major = $("input[name='addstudent-major']").val();
   	var period = $("input[name='addstudent-period']").val();
-  	var str_data = {id: id, password: pwd, name: name, sex: sex, college: college, major: major, period: period};
+  	var avatar_url = $("input[name='addstudent-avatar_url']").val();
+  	var str_data = {id: id, password: pwd, name: name, sex: sex, college: college, major: major, period: period, avatar_url: avatar_url};
   	return str_data;
   }
   function getTeacherData(){
@@ -38,7 +38,8 @@ $(document).ready(function() {
   	var name = $("input[name='addteacher-name']").val();
   	var sex = $("input[name='addteacher_sex']:checked").val();
   	var college = $("input[name='addteacher-college']").val();
-  	var str_data = {id: id, password: pwd, name: name, sex: sex, college: college};
+  	var avatar_url = $("input[name='addteacher-avatar_url']").val();
+  	var str_data = {id: id, password: pwd, name: name, sex: sex, college: college, avatar_url: avatar_url};
   	return str_data;
   }
   function getInformData(){
@@ -60,8 +61,9 @@ $(document).ready(function() {
   	var credit = $("input[name='addcourse-credit']").val();
   	var type = $(".addcourse-type").val();
   	var teacher_id = $("input[name='addcourse-teacher_id']").val();
+  	var introduction = $("input[name='addcourse-introduction']").val();
   	var create_time = getNowFormatDate();
-  	var str_data = {id: id, name: name, teacher_id: teacher_id, location: location, credit: credit, type: type, create_time: create_time};
+  	var str_data = {id: id, name: name, teacher_id: teacher_id, location: location, credit: credit, type: type,introduction: introduction, create_time: create_time};
   	return str_data;
   }
   function getNoticeData(){
@@ -70,11 +72,23 @@ $(document).ready(function() {
   	var content = $("input[name='addnotice-content']").val();
   	var course_id = $("input[name='addnotice-course_id']").val();
   	var create_time = getNowFormatDate();
-  	var str_data = {id: id, title: title, content: content, create_time: create_time};
+  	var str_data = {id: id, title: title, content: content, course_id: course_id, create_time: create_time};
   	return str_data;
   }
-function getNowFormatDate() {
-    var date = new Date();
+  function getSpreadData(){
+  	var id = $("input[name='addspread-title']").data("id");
+  	var title = $("input[name='addspread-title']").val();
+  	var sponsor = $("input[name='addspread-sponsor']").val();
+  	var event_date = $("input[name='addspread-event_date']").val();
+  	var event_address = $("input[name='addspread-event_address']").val();
+  	var event_describe = $("input[name='addspread-event_describe']").val();
+  	var poster_url = $("input[name='addspread-poster_url']").val();
+  	var create_time = getNowFormatDate();
+  	var str_data = {id: id, title: title, sponsor: sponsor, event_date: event_date, event_address: event_address, event_describe: event_describe, poster_url: poster_url, create_time: create_time};
+  	return str_data;
+  }
+function getdate(){
+	var date = new Date();
     var seperator1 = "-";
     var seperator2 = ":";
     var month = date.getMonth() + 1;
@@ -86,9 +100,13 @@ function getNowFormatDate() {
         strDate = "0" + strDate;
     }
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds();
+            + " " + date.getHours() + seperator2 + date.getMinutes();
     return currentdate;
+}
+function getNowFormatDate() {
+    var date = new Date();
+    
+    return date.getTime();
 }
 /**
  * 信息页面  编辑功能

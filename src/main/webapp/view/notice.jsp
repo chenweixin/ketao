@@ -41,11 +41,11 @@
     </div>
     <div class="content">
       <div class="content-titlebar">
-        <p class="text-title inline-block">搜索课程</p>
+        <p class="text-title inline-block">搜索课程通知</p>
       </div>
-      <form class="searchbar" action="/ketao/course/getcourses" onsubmit="return checkFields()">
+      <form class="searchbar" action="/ketao/notice/getnotices" onsubmit="return checkFields()">
         <div class="searcharea">
-          <input name="search" type="text" placeholder="输入课程名称">
+          <input name="search" type="text" placeholder="搜索课程通知">
         </div>
         
         <button type="submit" class="base-btn">搜索</button>
@@ -56,19 +56,19 @@
       
     <div class="content">
       <div class="content-titlebar">
-        <p class="text-title inline-block">添加课程</p>
+        <p class="text-title inline-block">添加课程通知</p>
       </div>
-      <p class="inline-block">添加新的课程请点击</p>
-      <a href="/ketao/view/addcourse.jsp" class="inline-block text-btn">添加</a>
+      <p class="inline-block">添加新的课程通知请点击</p>
+      <a href="/ketao/view/addnotice.jsp" class="inline-block text-btn">添加</a>
       
     </div>
     
     <div class="content">
       <div class="content-titlebar">
-        <p class="text-title inline-block">查看全部课程</p>
+        <p class="text-title inline-block">查看全部课程通知</p>
       </div>
-      <p class="inline-block">查看所有课程的列表</p>
-      <a href="/ketao/course/getall" class="inline-block text-btn">查看</a>
+      <p class="inline-block">查看所有课程通知的列表</p>
+      <a href="/ketao/notice/getall" class="inline-block text-btn">查看</a>
       
     </div>
   </div>

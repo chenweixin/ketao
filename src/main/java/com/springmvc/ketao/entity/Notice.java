@@ -24,7 +24,6 @@ public class Notice {
 	@Column(length=32)
 	private String title;
 	
-	@Column(length=32)
 	private String content;
 	
 	@Column(length=32)

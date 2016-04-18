@@ -91,7 +91,7 @@ public class NoticeController {
 		String notice_id = request.getParameter("noticeid");
 		Notice notice = noticeManager.get(notice_id);
 		request.setAttribute("notice", notice);
-		return "notice_info";
+		return "/view/notice_info";
 	}
 	
 	@RequestMapping("/getnotices")
@@ -100,7 +100,7 @@ public class NoticeController {
 		List<Notice> notices = noticeManager.getBySearch(search);
 		request.setAttribute("notices", notices);
 		request.setAttribute("search", search);
-		return "notice_result";
+		return "/view/notice_result";
 	}
 	
 	@RequestMapping("/getall")
@@ -108,6 +108,6 @@ public class NoticeController {
 		List<Notice> notices = noticeManager.getAll();
 		request.setAttribute("notices", notices);
 		request.setAttribute("search", "全部课程通知");
-		return "notice_result";
+		return "/view/notice_result";
 	}
 }

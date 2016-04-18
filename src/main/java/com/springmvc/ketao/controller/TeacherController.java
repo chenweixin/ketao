@@ -121,6 +121,7 @@ public class TeacherController {
 		JSONObject jsonObject = new JSONObject();
 		if(teacher != null){
 			jsonObject.put("success", "true");
+			jsonObject.put("teacher_name", teacher.getName());
 		}
 		else{
 

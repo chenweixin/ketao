@@ -60,7 +60,7 @@
 	      <th>姓名</th>
 	      <th>性别</th>
 	      <th>学院</th>
-	      <th></th>
+	      <th>头像</th>
 	    </tr>
 	    <c:if test="${!empty teachers }">
 		<c:forEach items="${teachers }" var="item">
@@ -78,6 +78,7 @@
 	      <td>女</td>
 	      </c:if>
 	      <td>${item.college}</td>
+	      <td><img src="${item.avatar_url}" style="height: 20px"/></td>
 	    </tr>
 	    </c:forEach>
 	    </c:if>

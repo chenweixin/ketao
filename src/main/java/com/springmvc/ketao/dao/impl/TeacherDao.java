@@ -41,13 +41,14 @@ public class TeacherDao implements ITeacherDao {
 
 	public boolean updateTeacher(Teacher teacher) {
 		String hql = "update Teacher s set s.password=?,s.name=?,s.sex=?"
-				+ ",s.college=? where s.id=?";
+				+ ",s.college=?,s.avatar_url=? where s.id=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, teacher.getPassword());
 		query.setString(1, teacher.getName());
 		query.setBoolean(2, teacher.isSex());
 		query.setString(3, teacher.getCollege());
-		query.setString(4, teacher.getId());
+		query.setString(4, teacher.getAvatar_url());
+		query.setString(5, teacher.getId());
 		
 		return (query.executeUpdate() > 0);
 	}

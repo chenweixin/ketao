@@ -82,4 +82,56 @@
 		<property name="target" ref="noticeManagerBase"></property>
 	</bean>
 	<!-- notice end -->
+	<!-- spread begin -->
+	<bean id="spreadDao" class="com.springmvc.ketao.dao.impl.SpreadDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="spreadManagerBase" class="com.springmvc.ketao.service.impl.SpreadManager">
+		<property name="spreadDao" ref="spreadDao"></property>
+	</bean>
+	
+	<bean id="spreadManager" parent="transactionBese">
+		<property name="target" ref="spreadManagerBase"></property>
+	</bean>
+	<!-- spread end -->
+	<!-- evaluation begin -->
+	<bean id="evaluationDao" class="com.springmvc.ketao.dao.impl.EvaluationDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="evaluationManagerBase" class="com.springmvc.ketao.service.impl.EvaluationManager">
+		<property name="evaluationDao" ref="evaluationDao"></property>
+	</bean>
+	
+	<bean id="evaluationManager" parent="transactionBese">
+		<property name="target" ref="evaluationManagerBase"></property>
+	</bean>
+	<!-- evaluation end -->
+	<!-- evalike begin -->
+	<bean id="evalikeDao" class="com.springmvc.ketao.dao.impl.EvalikeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="evalikeManagerBase" class="com.springmvc.ketao.service.impl.EvalikeManager">
+		<property name="evalikeDao" ref="evalikeDao"></property>
+	</bean>
+	
+	<bean id="evalikeManager" parent="transactionBese">
+		<property name="target" ref="evalikeManagerBase"></property>
+	</bean>
+	<!-- evalike end -->
+	<!-- coscollect begin -->
+	<bean id="coscollectDao" class="com.springmvc.ketao.dao.impl.CoscollectDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="coscollectManagerBase" class="com.springmvc.ketao.service.impl.CoscollectManager">
+		<property name="coscollectDao" ref="coscollectDao"></property>
+	</bean>
+	
+	<bean id="coscollectManager" parent="transactionBese">
+		<property name="target" ref="coscollectManagerBase"></property>
+	</bean>
+	<!-- evalike end -->
 </beans>

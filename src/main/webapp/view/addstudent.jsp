@@ -92,6 +92,12 @@
             <input name="addstudent-period" type="text" placeholder="请输入入学年份">
           </div>
         </div>
+        <div class="form-group">
+          <lable class="col-sm-2 text-right">头像</lable>
+          <div class="col-sm-4 inline-block">
+            <input name="addstudent-avatar_url" type="text" placeholder="头像链接">
+          </div>
+        </div>
         <div>
           <div class="col-sm-3">
             <lable id="addstudent-fail" class="text-error" style="display: none;">添加失败，请检查主键</lable>

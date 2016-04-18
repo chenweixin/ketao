@@ -28,7 +28,7 @@
 		<!-- 扫描注解的实体 -->
 		<property name="packagesToScan">
 		  <value>com.springmvc.ketao.entity</value>
-		</property>
+		</property> 
 		<!-- 
 		<property name="configLocations">
 			<list>

@@ -50,6 +50,7 @@
           <div class="col-sm-4 inline-block">
             <input name="addnotice-title" type="text" placeholder="请输入课程通知标题">
           </div>
+          <lable class="empty-error text-error" style="display: none;">课程id不能为空</lable>
         </div>
         <div class="form-group">
           <lable class="col-sm-2 text-right">课程通知</lable>
@@ -62,6 +63,7 @@
           <div class="col-sm-4 inline-block">
             <input name="addnotice-course_id" type="text" placeholder="请输入关联课程id">
           </div>
+          <label class="important-sign">*</label>
           <lable class="id-error text-error" style="display: none;">请输入正确的课程id</lable>
         </div>
         <div>

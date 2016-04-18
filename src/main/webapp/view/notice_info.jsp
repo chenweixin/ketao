@@ -55,6 +55,7 @@
             <p class="info-state">${notice.title }</p>
             <input data-id="${notice.id }" class="edit-state" name="addnotice-name" type="text" placeholder="请输入课程通知标题" value="${notice.title }" style="display: none;">
           </div>
+          <lable class="empty-error text-error" style="display: none;">课程id不能为空</lable>
         </div>
         <div class="form-group">
           <lable class="col-sm-2 text-right">课程通知</lable>
@@ -70,7 +71,7 @@
             <input class="edit-state" name="addnotice-id" type="text" placeholder="请输入课程id" value="${notice.course_id }" style="display: none;" disabled="">
           </div>
           <label class="edit-state important-sign" style="display: none;">*</label>
-          <lable class="empty-error text-error" style="display: none;">课程id不能为空</lable>
+          <lable class="id-error text-error" style="display: none;">请输入正确的课程id</lable>
         </div>
         <div class="form-group">
           <lable class="col-sm-2 text-right">更新时间</lable>

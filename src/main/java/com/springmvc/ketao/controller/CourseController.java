@@ -116,12 +116,34 @@ public class CourseController {
 	@RequestMapping("/getall")
 	public String getAll(HttpServletRequest request){
 		List<Course> courses = courseManager.getAll();
-		for(int i = 0; i < courses.size(); i++){
-			Course course = courses.get(i);
-			course.setTeacher_name(teacherManager.getTeacher(course.getTeacher_id()).getName());
-		}
+//		for(int i = 0; i < courses.size(); i++){
+//			Course course = courses.get(i);
+//			course.setTeacher_name(teacherManager.getTeacher(course.getTeacher_id()).getName());
+//		}
 		request.setAttribute("courses", courses);
 		request.setAttribute("search", "全部课程");
 		return "/view/course_result";
+	}
+	
+	@RequestMapping("/checkid")
+	public void checkId(HttpServletRequest request, HttpServletResponse response){
+		String course_id = request.getParameter("course_id");
+		Course course = courseManager.get(course_id);
+		JSONObject jsonObject = new JSONObject();
+		if(course != null){
+			jsonObject.put("success", "true");
+		}
+		else{
+
+			jsonObject.put("success", "false");
+		}
+		response.setContentType("application/json");
+		try {
+			PrintWriter writer = response.getWriter();
+			writer.write(jsonObject.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

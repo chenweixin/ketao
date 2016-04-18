@@ -60,6 +60,7 @@
 	      <th>任课教师</th>
 	      <th>上课地点</th>
 	      <th>学分</th>
+	      <th>课程简介</th>
 	      <th>课程类型</th>
 	      <th>课程收藏数</th>
 	      <th>总评价数</th>
@@ -77,14 +78,14 @@
 	      <td><a class="text-btn" href="/ketao/teacher/get?teacherid=${item.teacher_id }">${item.teacher_name}</a></td>
 	      <td>${item.location}</td>
 	      <td>${item.credit}</td>
+	      <td>${item.introduction}</td>
 	      <td>
-	        <c:if test='${item.type == 0}'>专业选修</c:if>
-	        <c:if test='${item.type == 1}'>人文科学</c:if>
-	        <c:if test='${item.type == 2}'>人文科学核心</c:if>
-	        <c:if test='${item.type == 3}'>社会科学</c:if>
-	        <c:if test='${item.type == 4}'>社会科学核心</c:if>
-	        <c:if test='${item.type == 5}'>科学技术</c:if>
-	        <c:if test='${item.type == 6}'>科学技术核心</c:if>
+	        <c:if test='${item.type == 0}'>人文科学</c:if>
+	        <c:if test='${item.type == 1}'>人文科学核心</c:if>
+	        <c:if test='${item.type == 2}'>社会科学</c:if>
+	        <c:if test='${item.type == 3}'>社会科学核心</c:if>
+	        <c:if test='${item.type == 4}'>科学技术</c:if>
+	        <c:if test='${item.type == 5}'>科学技术核心</c:if>
 	      </td>
 	      <td>${item.num_collect}</td>
 	      <td>${item.num_evaluate}</td>

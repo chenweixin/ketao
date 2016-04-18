@@ -105,6 +105,13 @@
             <input class="edit-state" name="addteacher-college" type="text" placeholder="请输入学院" value="${teacher.college }" style="display: none;">
           </div>
         </div>
+        <div class="form-group">
+          <lable class="col-sm-2 text-right">头像</lable>
+          <div class="col-sm-4 inline-block">
+            <p class="info-state">${teacher.avatar_url }</p>
+            <input class="edit-state" name="addteacher-avatar_url" type="text" placeholder="头像链接" value="${teacher.avatar_url }" style="display: none;">
+          </div>
+        </div>
         <div class="edit-btn" style="display: none;">
           <div class="col-sm-3">
             <lable class="text-error" style="display: none;">修改失败</lable>

@@ -30,13 +30,12 @@ public class Course {
 	private Integer credit;
 	
 	/**
-	 * 0：专业选修
-	 * 1：人文科学
-	 * 2：人文科学核心
-	 * 3：社会科学
-	 * 4：社会科学核心
-	 * 5：科学技术
-	 * 6：科学技术核心
+	 * 0：人文科学
+	 * 1：人文科学核心
+	 * 2：社会科学
+	 * 3：社会科学核心
+	 * 4：科学技术
+	 * 5：科学技术核心
 	 */
 	@Column
 	private Integer type;
@@ -52,6 +51,27 @@ public class Course {
 	
 	@Column(columnDefinition="INT default 0", nullable=false, updatable=false, insertable=false)
 	private Integer score;
+	
+	@Column(columnDefinition="DOUBLE default 0.0", nullable=false, updatable=false, insertable=false)
+	private double avg_score;
+	
+	private String introduction;
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public double getAvg_score() {
+		return avg_score;
+	}
+
+	public void setAvg_score(double avg_score) {
+		this.avg_score = avg_score;
+	}
 
 	public String getId() {
 		return id;

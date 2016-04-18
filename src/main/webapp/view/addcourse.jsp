@@ -79,6 +79,12 @@
           </div>
         </div>
         <div class="form-group">
+          <lable class="col-sm-2 text-right">简介</lable>
+          <div class="col-sm-4 inline-block">
+            <input name="addcourse-introduction" type="text" placeholder="请输入课程简介">
+          </div>
+        </div>
+        <div class="form-group">
           <lable class="col-sm-2 text-right">课程类型</lable>
           <div class="col-sm-4 inline-block">
             <select class="addcourse-type">
@@ -88,7 +94,6 @@
               <option value="3">
               <option value="4">
               <option value="5">
-              <option value="6">
             </select>
           </div>
         </div>
@@ -114,7 +119,8 @@
 	  	   data: {teacher_id: teacher_id},
 	  	   success: function(data){
 	  	   	if(data.success == "true"){
-	  	   	var str_data = getCourseData();
+	  	   	var teacher_name = data.teacher_name;
+	  	   	var str_data = getData(teacher_name);
 	  	  	$.ajax({
 	  	  	   type: "POST",
 	  	  	   url: "/ketao/course/add",
@@ -137,6 +143,21 @@
 	  	   	}
 	  	   }
 	  	});
+	  function getData(teacher_name){
+		  	var id = $("input[name='addcourse-id']").val();
+		  	if(id == ""){
+		  		$(".empty-error").show().css("display", "inline-block");
+		  		return;
+		  	}
+		  	var name = $("input[name='addcourse-name']").val();
+		  	var location = $("input[name='addcourse-location']").val();
+		  	var credit = $("input[name='addcourse-credit']").val();
+		  	var type = $(".addcourse-type").val();
+		  	var teacher_id = $("input[name='addcourse-teacher_id']").val();
+		  	var create_time = getNowFormatDate();
+		  	var str_data = {id: id, name: name, teacher_id: teacher_id, teacher_name:teacher_name, location: location, credit: credit, type: type, create_time: create_time};
+		  	return str_data;
+		  }
   }
   </script>
 </body>

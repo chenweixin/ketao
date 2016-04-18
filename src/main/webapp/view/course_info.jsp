@@ -88,6 +88,13 @@
           </div>
         </div>
         <div class="form-group">
+          <lable class="col-sm-2 text-right">简介</lable>
+          <div class="col-sm-4 inline-block">
+            <p class="info-state">${course.introduction }</p>
+            <input class="edit-state" name="addcourse-introduction" type="text" placeholder="请输入课程简介" value="${course.introduction }" style="display: none;">
+          </div>
+        </div>
+        <div class="form-group">
           <lable class="col-sm-2 text-right">课程类型</lable>
           <div class="col-sm-4 inline-block">
             <p class="info-state">${course.type }</p>
@@ -98,7 +105,6 @@
               <option value="3" <c:if test='${course.type == 3}'>selected=""</c:if>>
               <option value="4" <c:if test='${course.type == 4}'>selected=""</c:if>>
               <option value="5" <c:if test='${course.type == 5}'>selected=""</c:if>>
-              <option value="6" <c:if test='${course.type == 6}'>selected=""</c:if>>
             </select>
             
           </div>

@@ -80,6 +80,12 @@
             <input name="addteacher-college" type="text" placeholder="请输入学院名称">
           </div>
         </div>
+        <div class="form-group">
+          <lable class="col-sm-2 text-right">头像</lable>
+          <div class="col-sm-4 inline-block">
+            <input name="addteacher-avatar_url" type="text" placeholder="头像链接">
+          </div>
+        </div>
         <div>
           <div class="col-sm-3">
             <lable id="addteacher-fail" class="text-error" style="display: none;">添加失败，请检查主键</lable>

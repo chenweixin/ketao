@@ -40,7 +40,7 @@ public class StudentDao implements IStudentDao {
 
 	public boolean updateStudent(Student student) {
 		String hql = "update Student s set s.password=?,s.name=?,s.sex=?"
-				+ ",s.college=?,s.major=?,s.period=? where s.id=?";
+				+ ",s.college=?,s.major=?,s.period=?,s.avatar_url=? where s.id=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, student.getPassword());
 		query.setString(1, student.getName());
@@ -48,7 +48,8 @@ public class StudentDao implements IStudentDao {
 		query.setString(3, student.getCollege());
 		query.setString(4, student.getMajor());
 		query.setString(5, student.getPeriod());
-		query.setString(6, student.getId());
+		query.setString(6, student.getAvatar_url());
+		query.setString(7, student.getId());
 		
 		return (query.executeUpdate() > 0);
 	}

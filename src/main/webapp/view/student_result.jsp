@@ -62,6 +62,7 @@
 	      <th>学院</th>
 	      <th>专业</th>
 	      <th>入学年份</th>
+	      <th>头像</th>
 	      <th></th>
 	    </tr>
 	    <c:if test="${!empty students }">
@@ -82,6 +83,7 @@
 	      <td>${item.college}</td>
 	      <td>${item.major}</td>
 	      <td>${item.period}</td>
+	      <td><img src="${item.avatar_url}" style="height: 20px"/></td>
 	    </tr>
 	    </c:forEach>
 	    </c:if>

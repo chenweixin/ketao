@@ -12,4 +12,6 @@ public interface ICourseManager {
 	public Course get(String id);
 	public List<Course> getBySearch(String search);
 	public List<Course> getAll();
+	public List<Course> getRankingCourses(int pageSize, int pageIndex);
+	public List<Course> getByType(int type, int pageSize, int pageIndex);
 }

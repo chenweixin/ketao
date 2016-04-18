@@ -42,4 +42,12 @@ public class CourseManager implements ICourseManager {
 		return courseDao.get(id);
 	}
 
+	public List<Course> getRankingCourses(int pageSize, int pageIndex) {
+		return courseDao.getRankingCourses(pageSize, pageIndex);
+	}
+
+	public List<Course> getByType(int type, int pageSize, int pageIndex) {
+		return courseDao.getByType(type, pageSize, pageIndex);
+	}
+
 }

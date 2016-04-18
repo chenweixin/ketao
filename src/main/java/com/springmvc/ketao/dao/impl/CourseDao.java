@@ -32,16 +32,22 @@ public class CourseDao implements ICourseDao {
 	}
 
 	public boolean update(Course course) {
-		String hql = "update Course s set s.name=?,s.location=?,s.credit=?,s.type=?,s.teacher_id=?"
-				+ "s.create_time=? where s.id=?";
+		String hql = "update Course s set s.name=?,s.location=?,s.credit=?,s.type=?,s.teacher_id=?,"
+				+ "s.introduction=?,s.create_time=?,s.num_collect=?,s.num_evaluate=?,s.score=?,"
+				+ "s.avg_score=? where s.id=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, course.getName());
 		query.setString(1, course.getLocation());
 		query.setInteger(2, course.getCredit());
 		query.setInteger(3, course.getType());
 		query.setString(4, course.getTeacher_id());
-		query.setString(5, course.getCreate_time());
-		query.setString(6, course.getId());
+		query.setString(5, course.getIntroduction());
+		query.setString(6, course.getCreate_time());
+		query.setInteger(7, course.getNum_collect());
+		query.setInteger(8, course.getNum_evaluate());
+		query.setInteger(9, course.getScore());
+		query.setDouble(10, course.getAvg_score());
+		query.setString(11, course.getId());
 		
 		return (query.executeUpdate() > 0);
 	}
@@ -64,6 +70,23 @@ public class CourseDao implements ICourseDao {
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, id);
 		return (Course) query.uniqueResult();
+	}
+
+	public List<Course> getRankingCourses(int pageSize, int pageIndex) {
+		String hql = "from Course s order by s.avg_score desc";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageSize * pageIndex);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+
+	public List<Course> getByType(int type, int pageSize, int pageIndex) {
+		String hql = "from Course s where s.type=?";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setInteger(0, type);
+		query.setFirstResult(pageSize * pageIndex);
+		query.setMaxResults(pageSize);
+		return query.list();
 	}
 
 }
