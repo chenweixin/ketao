@@ -97,7 +97,15 @@ public class MobileController {
 				teachers.add(teacherManager.getTeacher(teacher_id));
 			}
 		}
-		JSONArray jsonArray = JSONArray.parseArray(JSON.toJSONString(teachers));
+		JSONArray jsonArray;
+		if(pageIndex * pageSize >= teachers.size()){
+			jsonArray = new JSONArray();
+		}
+		else{
+			int toIndex = ((pageIndex+1) * pageSize)>teachers.size()?teachers.size():((pageIndex+1) * pageSize);
+			jsonArray = JSONArray.parseArray(JSON.toJSONString(
+					teachers.subList(pageIndex * pageSize, toIndex)));
+		}
 		response.setContentType("application/json");
 		try {
 			PrintWriter writer = response.getWriter();
@@ -188,6 +196,9 @@ public class MobileController {
 			JSONObject student = JSONObject.parseObject(JSON.toJSONString(
 					studentManager.getStudent(evaluations.get(i).getStudent_id())));
 			object.put("student", student);
+			JSONObject course = JSONObject.parseObject(JSON.toJSONString(
+					courseManager.get(evaluations.get(i).getCourse_id())));
+			object.put("course", course);
 			
 			//根据evaluation_id student_id 判断是否已经点赞
 			String evaluation_id = evaluations.get(i).getId();
@@ -226,6 +237,9 @@ public class MobileController {
 			JSONObject student = JSONObject.parseObject(JSON.toJSONString(
 					studentManager.getStudent(evaluations.get(i).getStudent_id())));
 			object.put("student", student);
+			JSONObject course = JSONObject.parseObject(JSON.toJSONString(
+					courseManager.get(evaluations.get(i).getCourse_id())));
+			object.put("course", course);
 			
 			//根据evaluation_id student_id 判断是否已经点赞
 			String evaluation_id = evaluations.get(i).getId();
@@ -261,7 +275,24 @@ public class MobileController {
 		List<Coscollect> coscollects = coscollectManager.getMy(student_id, pageSize, pageIndex);
 		for(int i = 0; i < coscollects.size(); i++){
 			String course_id = coscollects.get(i).getCourse_id();
-			jsonArray.add(JSONObject.parseObject(JSON.toJSONString(coscollectManager.get(course_id))));
+			JSONObject object = JSONObject.parseObject(JSON.toJSONString(courseManager.get(course_id)));
+			
+			//根据studentid 和 courseid查找CosCollect 若存在 则设置已收藏标识
+			Coscollect coscollect = coscollectManager.isExist(course_id, student_id);
+			if(coscollect != null){
+				object.put("iscollect", "true");
+			}
+			else {
+				object.put("iscollect", "false");
+			}
+			Evaluation evaluation = evaluationManager.isExist(course_id, student_id);
+			if(evaluation != null){
+				object.put("isevaluate", "true");
+			}
+			else{
+				object.put("isevaluate", "false");
+			}
+			jsonArray.add(object);
 		}
 		response.setContentType("application/json");
 		try {
@@ -724,7 +755,7 @@ public class MobileController {
 	/**
 	 * 添加测试数据
 	 */
-	@RequestMapping("/test")
+//	@RequestMapping("/test")
 	public void addTest(HttpServletResponse response){
 //		String colleges[] = {"建筑学院","土木与交通学院","材料科学与工程学院","电力学院","自动化科学与工程学院","电子与信息学院",
 //				"化学与化工学院","轻工与食品学院","理学院","机械与汽车工程学院","工商管理学院","公共管理学院","思想政治学院",
