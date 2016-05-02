@@ -12,4 +12,5 @@ public interface INoticeDao {
 	public Notice get(String id);
 	public List<Notice> getBySearch(String search);
 	public List<Notice> getAll();
+	public List<Notice> getNotices(int pageSize, int pageIndex, String []ids);
 }

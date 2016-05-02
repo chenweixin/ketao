@@ -42,4 +42,8 @@ public class InformManager implements IInformManager {
 		return informDao.getInformsBySearch(search);
 	}
 
+	public List<Inform> getInforms(int pageSize, int pageIndex) {
+		return informDao.getInforms(pageSize, pageIndex);
+	}
+
 }

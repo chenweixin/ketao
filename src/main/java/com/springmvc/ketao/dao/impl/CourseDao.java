@@ -89,4 +89,13 @@ public class CourseDao implements ICourseDao {
 		return query.list();
 	}
 
+	public List<Course> getBySearch(String search, int pageSize, int pageIndex) {
+		String hql = "from Course s where s.name like?";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setString(0, "%"+search+"%");
+		query.setFirstResult(pageSize * pageIndex);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+
 }

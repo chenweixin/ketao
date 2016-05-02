@@ -11,4 +11,5 @@ public interface ICoscollectManager {
 	public Coscollect get(String id);
 	public Coscollect isExist(String course_id, String student_id);
 	public List<Coscollect> getMy(String student_id, int pageSize, int pageIndex);
+	public String[] getMy(String student_id);
 }

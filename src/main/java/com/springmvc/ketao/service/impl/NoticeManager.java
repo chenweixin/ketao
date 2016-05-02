@@ -42,4 +42,8 @@ public class NoticeManager implements INoticeManager {
 		return noticeDao.getAll();
 	}
 
+	public List<Notice> getNotices(int pageSize, int pageIndex, String []ids) {
+		return noticeDao.getNotices(pageSize, pageIndex, ids);
+	}
+
 }

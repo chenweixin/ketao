@@ -11,5 +11,6 @@ public interface IInformManager {
 	public boolean updateInform(Inform inform);
 	public Inform getInform(String id);
 	public List<Inform> getAllInforms();
+	public List<Inform> getInforms(int pageSize, int pageIndex);
 	public List<Inform> getInformsBySearch(String search);
 }

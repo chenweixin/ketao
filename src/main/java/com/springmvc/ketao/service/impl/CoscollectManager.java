@@ -1,5 +1,6 @@
 package com.springmvc.ketao.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.springmvc.ketao.dao.ICoscollectDao;
@@ -36,5 +37,15 @@ public class CoscollectManager implements ICoscollectManager {
 
 	public List<Coscollect> getMy(String student_id, int pageSize, int pageIndex) {
 		return coscollectDao.getMy(student_id, pageSize, pageIndex);
+	}
+
+	public String[] getMy(String student_id) {
+		List<Coscollect> coscollects = coscollectDao.getMy(student_id);
+		List<String> course_ids = new ArrayList<String>();
+		for(int i = 0; i < coscollects.size(); i++){
+			course_ids.add(coscollects.get(i).getCourse_id());
+		}
+		String []ids = (String[]) course_ids.toArray(new String[course_ids.size()]);
+		return ids;
 	}
 }

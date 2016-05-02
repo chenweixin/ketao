@@ -25,6 +25,7 @@ import com.springmvc.ketao.entity.Coscollect;
 import com.springmvc.ketao.entity.Course;
 import com.springmvc.ketao.entity.Evalike;
 import com.springmvc.ketao.entity.Evaluation;
+import com.springmvc.ketao.entity.Inform;
 import com.springmvc.ketao.entity.Notice;
 import com.springmvc.ketao.entity.Spread;
 import com.springmvc.ketao.entity.Student;
@@ -33,6 +34,7 @@ import com.springmvc.ketao.service.ICoscollectManager;
 import com.springmvc.ketao.service.ICourseManager;
 import com.springmvc.ketao.service.IEvalikeManager;
 import com.springmvc.ketao.service.IEvaluationManager;
+import com.springmvc.ketao.service.IInformManager;
 import com.springmvc.ketao.service.INoticeManager;
 import com.springmvc.ketao.service.ISpreadManager;
 import com.springmvc.ketao.service.IStudentManager;
@@ -59,6 +61,8 @@ public class MobileController {
 	private ICoscollectManager coscollectManager;
 	@Resource(name="noticeManager")
 	private INoticeManager noticeManager;
+	@Resource(name="informManager")
+	private IInformManager informManager;
 	
 	public void rankCourses(){
 		List<Course> courses = courseManager.getAll();
@@ -75,6 +79,102 @@ public class MobileController {
 			double weight = (C * m + X) / (n + C);
 			courses.get(i).setAvg_score(weight);
 			courseManager.update(courses.get(i));
+		}
+	}
+	
+	/**
+	 * 获取课程通知
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/notice/get")
+	public void getNotices(HttpServletRequest request, HttpServletResponse response){
+		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		int pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+		String student_id = request.getParameter("student_id");
+		String []ids = coscollectManager.getMy(student_id);
+		JSONArray jsonArray = new JSONArray();
+		List<Notice> notices = noticeManager.getNotices(pageSize, pageIndex, ids);
+		for(int i = 0; i < notices.size(); i++){
+			JSONObject object = JSONObject.parseObject(JSON.toJSONString(notices.get(i)));
+			jsonArray.add(object);
+		}
+		response.setContentType("application/json");
+		try {
+			PrintWriter writer = response.getWriter();
+			writer.write(jsonArray.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 获取系统通告
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/inform/get")
+	public void getInforms(HttpServletRequest request, HttpServletResponse response){
+		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		int pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+		JSONArray jsonArray = new JSONArray();
+		List<Inform> informs = informManager.getInforms(pageSize, pageIndex);
+		for(int i = 0; i < informs.size(); i++){
+			JSONObject object = JSONObject.parseObject(JSON.toJSONString(informs.get(i)));
+			jsonArray.add(object);
+		}
+		response.setContentType("application/json");
+		try {
+			PrintWriter writer = response.getWriter();
+			writer.write(jsonArray.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 推荐课程
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/course/getbysearch")
+	public void getCoursesBySearch(HttpServletRequest request, HttpServletResponse response){
+		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		int pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+		String student_id = request.getParameter("student_id");
+		String search = request.getParameter("search");
+		JSONArray jsonArray = new JSONArray();
+		List<Course> courses = courseManager.getBySearch(search, pageSize, pageIndex);
+		for(int i = 0; i < courses.size(); i++){
+			JSONObject object = JSONObject.parseObject(JSON.toJSONString(courses.get(i)));
+
+			//根据studentid 和 courseid查找CosCollect 若存在 则设置已收藏标识
+			String course_id = courses.get(i).getId();
+			Coscollect coscollect = coscollectManager.isExist(course_id, student_id);
+			if(coscollect != null){
+				object.put("iscollect", "true");
+			}
+			else {
+				object.put("iscollect", "false");
+			}
+			Evaluation evaluation = evaluationManager.isExist(course_id, student_id);
+			if(evaluation != null){
+				object.put("isevaluate", "true");
+			}
+			else{
+				object.put("isevaluate", "false");
+			}
+			jsonArray.add(object);
+		}
+		response.setContentType("application/json");
+		try {
+			PrintWriter writer = response.getWriter();
+			writer.write(jsonArray.toJSONString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

@@ -63,4 +63,12 @@ public class InformDao implements IInformDao {
 		return query.list();
 	}
 
+	public List<Inform> getInforms(int pageSize, int pageIndex) {
+		String hql = "from Inform";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setFirstResult(pageSize * pageIndex);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+
 }

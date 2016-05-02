@@ -50,4 +50,8 @@ public class CourseManager implements ICourseManager {
 		return courseDao.getByType(type, pageSize, pageIndex);
 	}
 
+	public List<Course> getBySearch(String search, int pageSize, int pageIndex) {
+		return courseDao.getBySearch(search, pageSize, pageIndex);
+	}
+
 }

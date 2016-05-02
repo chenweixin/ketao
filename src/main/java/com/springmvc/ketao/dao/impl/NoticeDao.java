@@ -62,4 +62,13 @@ public class NoticeDao implements INoticeDao {
 		return query.list();
 	}
 
+	public List<Notice> getNotices(int pageSize, int pageIndex, String []ids) {
+		String hql = "from Notice s where s.course_id in (:ids)";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameterList("ids", ids);
+		query.setFirstResult(pageSize * pageIndex);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+
 }

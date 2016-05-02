@@ -54,4 +54,11 @@ public class CoscollectDao implements ICoscollectDao {
 		query.setMaxResults(pageSize);
 		return query.list();
 	}
+
+	public List<Coscollect> getMy(String student_id) {
+		String hql = "from Coscollect s where s.student_id=?";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setString(0, student_id);
+		return query.list();
+	}
 }
